@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Todo App</h1>
+
+    <input type="text" id="todoInput" placeholder="Enter a todo">
+    <button onclick="addTodo()">Add</button>
+
+    <ul id="todoList"></ul>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+    <script>
+
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBnqCWExZWwZ3IRtN8mz9SeU0P4VX1vZl8",
+            authDomain: "techin510-lab5.firebaseapp.com",
+            projectId: "techin510-lab5",
+            storageBucket: "techin510-lab5.appspot.com",
+            messagingSenderId: "721450711828",
+            appId: "1:721450711828:web:216db544c123a993d3a001"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.firestore();
+
+        // Function to add a todo
+        function addTodo() {
+            var input = document.getElementById("todoInput");
+            var todo = input.value.trim();
+
+            if (todo !== "") {
+                db.collection("todos").add({
+                    text: todo
+                })
+                    .then(function (docRef) {
+                        var todoItem = createTodoItem(todo, docRef.id);
+                        document.getElementById("todoList").appendChild(todoItem);
+                        input.value = "";
+                    })
+                    .catch(function (error) {
+                        console.error("Error adding todo: ", error);
+                    });
+            }
+        }
+
+        // Function to create a todo item
+        function createTodoItem(text, id) {
+            var li = document.createElement("li");
+            li.innerText = text;
+
+            var deleteBtn = document.createElement("span");
+            deleteBtn.innerText = " ❌";
+            deleteBtn.className = "delete-btn";
+            deleteBtn.onclick = function () {
+                deleteTodo(id, li);
+            };
+
+            li.appendChild(deleteBtn);
+            return li;
+        }
+
+        // Function to delete a todo
+        function deleteTodo(id, listItem) {
+            db.collection("todos").doc(id).delete()
+                .then(function () {
+                    listItem.remove();
+                })
+                .catch(function (error) {
+                    console.error("Error deleting todo: ", error);
+                });
+        }
+
+        // Retrieve todos from Firebase on page load
+        db.collection("todos").get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                var todoItem = createTodoItem(doc.data().text, doc.id);
+                document.getElementById("todoList").appendChild(todoItem);
+            });
+        });
+    </script>
+</body>
+
+</html>
