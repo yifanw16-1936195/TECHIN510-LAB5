@@ -4,7 +4,7 @@
 
 ## Hosted Link
 
-[AI Fitness Coach](https://techin510-lab5.streamlit.app/)
+[AI Fitness Coach](https://techin510-lab5-ai-fitness-coach.streamlit.app/)
 
 ## Overview
 
