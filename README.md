@@ -6,6 +6,8 @@
 
 [AI Fitness Coach](https://techin510-lab5-ai-fitness-coach.streamlit.app/)
 
+[To-do App](https://yifanw16-1936195.github.io/TECHIN510-LAB5/todo%20app/index.html)
+
 ## Overview
 
 This lab focuses on creating an AI-powered fitness coach using Streamlit, a Python web application framework, and the Google Gemini API. The app allows users to input their personal information, fitness goals, and available equipment, and generates a personalized workout plan based on the provided details.
