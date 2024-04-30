@@ -6,7 +6,7 @@
 
 [AI Fitness Coach](https://techin510-lab5-ai-fitness-coach.streamlit.app/)
 
-[To-do App](https://yifanw16-1936195.github.io/TECHIN510-LAB5/todo%20app/index.html)
+[To-do App](https://yifanwang16.github.io/TECHIN510-LAB5/todo%20app/index.html)
 
 ## Overview
 
